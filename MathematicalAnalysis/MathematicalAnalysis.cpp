@@ -1,56 +1,15 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>>
-#include <assert.h>
-
-void BelongsTo();
-void ContainedIn();
+#include "Introduction.h"
 
 int main()
-{
-	BelongsTo();
-	ContainedIn();
-}
-
-void BelongsTo()
-{
-	std::vector<int> A = { 1, 2, 3 };
-	int a1 = 2, a2 = 4;
-
-	struct Contains
-	{
-		const int a;
-		Contains(int _a) : a(_a) {}
-
-		bool operator()(int _a) const { return this->a == _a; }
-	};
-
-	bool a1BelongsToA = std::any_of(A.cbegin(), A.cend(), Contains(a1));
-	bool a2BelongsToA = std::any_of(A.cbegin(), A.cend(), Contains(a2));
-
-	assert(a1BelongsToA);
-	assert(!a2BelongsToA);
-}
-
-void ContainedIn()
 {
 	std::vector<int> A = { 1, 2, 3 };
 	std::vector<int> B = { 1, 2 };
 
-	struct Contains
-	{
-		const int a;
-		Contains(int _a) : a(_a) {}
+	int a1 = 2;
+	int a2 = 4;
 
-		bool operator()(int _a) const { return this->a == _a; }
-	};
-
-	bool BisContainedInA = std::all_of(B.cbegin(), B.cend(), [A](int b) {
-		return std::any_of(A.cbegin(), A.cend(), Contains(b)); });
-
-	bool AisContainedInB = std::all_of(A.cbegin(), A.cend(), [B](int a) {
-		return std::any_of(B.cbegin(), B.cend(), Contains(a)); });
-
-	assert(BisContainedInA);
-	assert(!AisContainedInB);
+	std::cout << "a1 belongs to A: " << BelongsTo(a1, A) << std::endl;
+	std::cout << "a2 belongs to A: " << BelongsTo(a2, A) << std::endl;
+	std::cout << "B is contained in A: " << IsContainedIn(A, B) << std::endl;
+	std::cout << "A is contained in B: " << IsContainedIn(B, A) << std::endl;
 }
